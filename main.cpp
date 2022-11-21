@@ -1,47 +1,54 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<time.h>
-#include<Windows.h>
-#include<functional>
+#include<vector>
+#include <iostream>
+#include<list>
 
-int main()
-{
-	//0か1の選択
-	int answer;
-	while (true)
+int	main() {
+	char a[7] = "sfafaa";
+	std::list<char>b{
+		'T','o','k','y','o','\0'											 //東京				
+		,'K','a','n','d','a','\0'											 //神田
+		,'A','k','i','h','a','b','a','r','a','\0'							 //秋葉原
+		,'O','k','a','c','h','i','m','a','c','h','i','\0'					 //御徒町
+		,'U','e','n','o','\0'												 //上野
+		,'U','g','u','i','s','u','d','a','n','i','\0'						 //鶯谷
+		,'N','i','p','p','o','r','i','\0'									 //日暮里
+		//,'N','i','s','h','i','N','i','p','p','o','r','i','\0'				 //西日暮里
+		,'T','a','b','a','t','a','\0'										 //田端
+		,'K','o','m','a','g','o','m','e','\0'								 //駒込
+		,'S','u','g','a','m','o','\0'										 //巣鴨
+		,'O','t','s','u','k','a','\0'										 //大塚
+		,'I','k','e','b','u','k','u','r','o','\0'							 //池袋
+		,'M','e','j','i','r','o','\0'										 //目白
+		,'T','a','k','a','d','a','n','o','b','a','b','a','\0'				 //高場馬場
+		,'S','h','i','n','-','O','k','u','b','o','\0'						 //新大久保
+		,'S','h','i','n','j','u','k','u','\0'								 //新宿
+		,'Y','o','y','o','g','i','\0'										 //代々木
+		,'H','a','r','a','j','u','k','u','\0'								 //原宿
+		,'S','h','i','b','u','y','a','\0'									 //渋谷
+		,'E','b','i','s','u','\0'											 //恵比寿
+		,'M','e','g','u','r','o','\0'										 //目黒
+		,'G','o','t','a','n','d','a','\0'									 //五反田
+		,'O','s','a','k','i','\0'											 //大﨑
+		,'S','h','i','n','a','g','a','w','a','\0'							 //品川
+		//,'T','a','k','a','n','a','w','a','G','a','t','e','w','a','y'	,'\0'//高輪ゲートウェイ
+		,'T','a','m','a','c','h','i','\0'									 //田町
+		,'H','a','m','a','m','a','t','s','u','c','h','o','\0'				 //浜松町
+		,'S','h','i','m','b','a','s','h','i','\0'							 //新橋
+		,'Y','u','r','a','k','u','c','h','o','\0'							 //有楽町
+	};
+	for (std::list<char>::iterator itr = b.begin(); itr != b.end(); ++itr)
 	{
-		printf("偶数だと思うなら0を、奇数だと思うなら1を入力してください\n");
-
-		scanf_s("%d", &answer);
-		if (answer == 0 || answer == 1)
+		//printf("%d\n", b);
+		std::cout << *itr << "";
+		if (*itr == '\0')
 		{
-			break;
-		}
-		else
-		{
-			printf("0または1を入力してください\n");
+			std::cout << *itr << "\n";
 		}
 	}
-
-	//答え合わせ
-	std::function<void()>ResultDisplay = [answer]() {
-		//乱数処理
-		srand(time(nullptr));
-		int	randNum = rand() % 6 + 1;
-		randNum % 2 == answer ? printf("%dなので正解\n", randNum) : printf("%dなので不正解\n", randNum);
-	};
-
-	//タイムアウト
-	std::function<void(std::function<void()>p, int second)>setTimeout = [=](std::function<void()>p, int second) {
-		printf("結果は\n");
-		Sleep(second * 1000);
-		p();
-	};
-
-	setTimeout(ResultDisplay, 3);
-
-	system("pause");
-
+	auto itr = b.begin();
+	printf("\n");
+	system("Pause");
 	return 0;
-
 }
