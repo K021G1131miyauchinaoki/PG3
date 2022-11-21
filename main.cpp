@@ -2,36 +2,11 @@
 #include<stdlib.h>
 #include<time.h>
 #include<Windows.h>
-
-typedef int (*newType)(int num);
-
-typedef void (*PFunc)(int*);
-
-void	callback(int* num) {
-	//乱数処理
-	srand(time(nullptr));
-	int	randNum = rand() % 6 + 1;
-
-	if (randNum % 2 == *num % 2)
-	{
-		printf("%dなので正解\n", randNum);
-	}
-	else
-	{
-		printf("%dなので不正解\n", randNum);
-	}
-}
-
-void	setTimeout(PFunc p, int answer, int second) {
-	printf("結果は...\n");
-	Sleep(second * 1000);
-
-	p(&answer);
-}
+#include<functional>
 
 int main()
 {
-	//ユーザの答え
+	//0か1の選択
 	int answer;
 	while (true)
 	{
@@ -48,9 +23,22 @@ int main()
 		}
 	}
 
-	PFunc p = callback;
+	//答え合わせ
+	std::function<void()>ResultDisplay = [answer]() {
+		//乱数処理
+		srand(time(nullptr));
+		int	randNum = rand() % 6 + 1;
+		randNum % 2 == answer ? printf("%dなので正解\n", randNum) : printf("%dなので不正解\n", randNum);
+	};
 
-	setTimeout(p, answer, 3);
+	//タイムアウト
+	std::function<void(std::function<void()>p, int second)>setTimeout = [=](std::function<void()>p, int second) {
+		printf("結果は\n");
+		Sleep(second * 1000);
+		p();
+	};
+
+	setTimeout(ResultDisplay, 3);
 
 	system("pause");
 
