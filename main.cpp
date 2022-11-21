@@ -1,4 +1,6 @@
 #include<stdio.h>
+#include<stdlib.h>
+
 int	Wage(int time) {
 
 	if (time <= 1)
@@ -69,6 +71,8 @@ void	comparison(int	time_) {
 
 int	main() {
 	comparison(8);
+
+	system("pause");
 
 	return	0;
 }
