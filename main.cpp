@@ -1,74 +1,59 @@
 #include<stdio.h>
-int	Wage(int time) {
+#include<stdlib.h>
+#include<time.h>
+#include<Windows.h>
 
-	if (time <= 1)
+typedef int (*newType)(int num);
+
+typedef void (*PFunc)(int*);
+
+void	callback(int* num) {
+	//乱数処理
+	srand(time(nullptr));
+	int	randNum = rand() % 6 + 1;
+
+	if (randNum % 2 == *num % 2)
 	{
-		return(100);
-	}
-	return	(Wage(time - 1) * 2 - 50);
-}
-
-int	HourlyWage(int time) {
-	if (time <= 1)
-	{
-		return(100);
-	}
-	return	 HourlyWage(time - 1) * 2 - 50;
-}
-
-//再帰と一般の比較関数
-void	comparison(int	time_) {
-	//時間
-	int	time = time_;
-
-	//再帰的な賃金
-	int	recursionMoney = 100;
-	int	recursionResult = 0;//再帰的な賃金の合計
-
-	//一般的な賃金
-	int	generalMoney = 1072;
-	int	generalResult = 0;//一般的な賃金の合計
-
-	//時給
-	recursionMoney = HourlyWage(time);
-
-	//賃金
-	for (size_t i = 0; i < time; i++)
-	{
-		recursionResult += Wage(i + 1);
-	}
-
-	generalResult = generalMoney * time;
-
-
-	printf("%d時間働いて\n", time);//何時間働いたか
-	printf("\n");
-	if (recursionMoney >= generalMoney)//どちらが高時給か
-	{
-		printf("再帰的な時給の方が高く%d円\n", recursionMoney);
-		printf("一般的な時給の方が低く%d円\n", generalMoney);
+		printf("%dなので正解\n", randNum);
 	}
 	else
 	{
-		printf("一般的な時給の方が高く%d円\n", generalMoney);
-		printf("再帰的な時給の方が低く%d円\n", recursionMoney);
-	}
-
-	printf("\n");
-	if (recursionResult >= generalResult)//それぞれの合計額
-	{
-		printf("再帰的な賃金の方が高く%d円\n", recursionResult);
-		printf("一般的な賃金の方が低く%d円\n", generalResult);
-	}
-	else
-	{
-		printf("一般的な賃金の方が高く%d円\n", generalResult);
-		printf("再帰的な賃金の方が低く%d円\n", recursionResult);
+		printf("%dなので不正解\n", randNum);
 	}
 }
 
-int	main() {
-	comparison(8);
+void	setTimeout(PFunc p, int answer, int second) {
+	printf("結果は...\n");
+	Sleep(second * 1000);
 
-	return	0;
+	p(&answer);
+}
+
+int main()
+{
+	//ユーザの答え
+	int answer;
+	while (true)
+	{
+		printf("偶数だと思うなら0を、奇数だと思うなら1を入力してください\n");
+
+		scanf_s("%d", &answer);
+		if (answer == 0 || answer == 1)
+		{
+			break;
+		}
+		else
+		{
+			printf("0または1を入力してください\n");
+		}
+	}
+
+	PFunc p = callback;
+
+	setTimeout(p, answer, 3);
+
+	system("pause");
+
+	return 0;
+
 }
