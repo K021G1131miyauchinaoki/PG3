@@ -5,7 +5,17 @@
 #include<list>
 
 int	main() {
-	char a[7] = "sfafaa";
+	
+	std::list<char[32]> yamanoteLine =
+	{
+		"Tokyo",
+		"Kanda",
+		"Akihabara",
+		"Okachimachi",
+		"Ueno",
+	};
+
+
 	std::list<char>b{
 		'T','o','k','y','o','\0'											 //“Œ‹				
 		,'K','a','n','d','a','\0'											 //_“c
@@ -47,6 +57,9 @@ int	main() {
 			std::cout << *itr << "\n";
 		}
 	}
+
+
+	std::list<std::vector<char>>a;
 	auto itr = b.begin();
 	printf("\n");
 	system("Pause");
