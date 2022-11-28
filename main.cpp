@@ -26,7 +26,7 @@ int main()
 	//“š‚¦‡‚í‚¹
 	std::function<void()>ResultDisplay = [answer]() {
 		//—”ˆ—
-		srand(time(nullptr));
+		srand(time(NULL));
 		int	randNum = rand() % 6 + 1;
 		randNum % 2 == answer ? printf("%d‚È‚Ì‚Å³‰ğ\n", randNum) : printf("%d‚È‚Ì‚Å•s³‰ğ\n", randNum);
 	};
