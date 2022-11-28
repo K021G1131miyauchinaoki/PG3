@@ -5,63 +5,119 @@
 #include<list>
 
 int	main() {
-	
-	std::list<char[32]> yamanoteLine =
-	{
-		"Tokyo",
-		"Kanda",
-		"Akihabara",
-		"Okachimachi",
-		"Ueno",
+	//山手線の駅名
+	std::list<const	char*> yamanoteLine={
+			  "Tokyo"				//東京				
+			, "Kanda"			//神田
+			, "Akihabara"		//秋葉原
+			, "Okachimachi"		//御徒町
+			, "Ueno"			//上野
+			, "Uguisudani"		//鶯谷
+			, "Nippori"			//日暮里
+			//NishiNippori		//西日暮里
+			, "Tabata"			//田端
+			, "Komagome"		//駒込
+			, "Sugamo"			//巣鴨
+			, "Otsuka"			//大塚
+			, "Ikebukuro"		//池袋
+			, "Mejiro"			//目白
+			, "Takabanobaba"	//高場馬場
+			, "Shin-Okubo"		//新大久保
+			, "Sinjuku"			//新宿
+			, "Yoyogi"			//代々木
+			, "Harajuku"		//原宿
+			, "Shibuya"			//渋谷
+			, "Ebisu"			//恵比寿
+			, "Meguro"			//目黒
+			, "Gotanda"			//五反田
+			, "Osaki"			//大﨑
+			, "Sinagawa"		//品川
+			//TakanawaGateway	//高輪ゲートウェイ
+			, "Tamachi"			//田町
+			, "Hamamatsucho"	//浜松町
+			, "Shimbashi"		//新橋
+			, "Yurakucho"		//有楽町
 	};
-
-
-	std::list<char>b{
-		'T','o','k','y','o','\0'											 //東京				
-		,'K','a','n','d','a','\0'											 //神田
-		,'A','k','i','h','a','b','a','r','a','\0'							 //秋葉原
-		,'O','k','a','c','h','i','m','a','c','h','i','\0'					 //御徒町
-		,'U','e','n','o','\0'												 //上野
-		,'U','g','u','i','s','u','d','a','n','i','\0'						 //鶯谷
-		,'N','i','p','p','o','r','i','\0'									 //日暮里
-		//,'N','i','s','h','i','N','i','p','p','o','r','i','\0'				 //西日暮里
-		,'T','a','b','a','t','a','\0'										 //田端
-		,'K','o','m','a','g','o','m','e','\0'								 //駒込
-		,'S','u','g','a','m','o','\0'										 //巣鴨
-		,'O','t','s','u','k','a','\0'										 //大塚
-		,'I','k','e','b','u','k','u','r','o','\0'							 //池袋
-		,'M','e','j','i','r','o','\0'										 //目白
-		,'T','a','k','a','d','a','n','o','b','a','b','a','\0'				 //高場馬場
-		,'S','h','i','n','-','O','k','u','b','o','\0'						 //新大久保
-		,'S','h','i','n','j','u','k','u','\0'								 //新宿
-		,'Y','o','y','o','g','i','\0'										 //代々木
-		,'H','a','r','a','j','u','k','u','\0'								 //原宿
-		,'S','h','i','b','u','y','a','\0'									 //渋谷
-		,'E','b','i','s','u','\0'											 //恵比寿
-		,'M','e','g','u','r','o','\0'										 //目黒
-		,'G','o','t','a','n','d','a','\0'									 //五反田
-		,'O','s','a','k','i','\0'											 //大﨑
-		,'S','h','i','n','a','g','a','w','a','\0'							 //品川
-		//,'T','a','k','a','n','a','w','a','G','a','t','e','w','a','y'	,'\0'//高輪ゲートウェイ
-		,'T','a','m','a','c','h','i','\0'									 //田町
-		,'H','a','m','a','m','a','t','s','u','c','h','o','\0'				 //浜松町
-		,'S','h','i','m','b','a','s','h','i','\0'							 //新橋
-		,'Y','u','r','a','k','u','c','h','o','\0'							 //有楽町
-	};
-	for (std::list<char>::iterator itr = b.begin(); itr != b.end(); ++itr)
+	//年代
+	int	age;
+	while (true)
 	{
-		//printf("%d\n", b);
-		std::cout << *itr << "";
-		if (*itr == '\0')
+		//要素の削除
 		{
-			std::cout << *itr << "\n";
+			for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
+			{
+				//西日暮里駅を削除
+				if (*itr == "Nishi-Nippori")
+				{
+					yamanoteLine.erase(itr);
+					break;
+				}
+			}
+			for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
+			{
+				//高輪ゲートウェイ駅を削除
+				if (*itr == "TakanawaGateway")
+				{
+					yamanoteLine.erase(itr);
+					break;
+				}
+			}
+		}
+
+		printf("0で1970年,1で2019年,2で2022年の駅一覧を表示します\n");
+		printf("終了する際は3を入力してください\n");
+
+		scanf_s("%d", &age);
+
+		//要素の追加
+		for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
+		{
+			//2019年　西日暮里駅を追加
+			if (age == 1)
+			{
+				if (*itr == "Tabata")
+				{
+					itr = yamanoteLine.insert(itr, "Nishi-Nippori");
+					++itr;
+				}
+			}
+			//2022年　西日暮里駅,高輪ゲートウェイ駅を追加
+			if (age == 2)
+			{
+				if (*itr == "Tabata")
+				{
+					itr = yamanoteLine.insert(itr, "Nishi-Nippori");
+					++itr;
+				}
+				if (*itr == "Tamachi")
+				{
+					itr = yamanoteLine.insert(itr, "TakanawaGateway");
+					++itr;
+				}
+			}
+		}
+
+		//描画
+		if (age == 0 || age == 1 || age == 2)
+		{
+			for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
+			{
+				//1970年はそのまま
+				std::cout << *itr << "\n";
+			}
+		}
+		//3がだったらループを抜ける
+		else if (age==3)
+		{
+			break;
+		}
+		//それ以外の数字の時
+		else
+		{
+			printf("0,1,2のどれかを入力してください\n");
 		}
 	}
 
-
-	std::list<std::vector<char>>a;
-	auto itr = b.begin();
-	printf("\n");
 	system("Pause");
 	return 0;
 }
