@@ -29,8 +29,9 @@ void	index(CELL*head_){
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
-		printf("%d\n", head_->val);
+		printf("%d,", head_->val);
 	}
+	printf("\n");
 }
 
 int	main() {
@@ -40,9 +41,9 @@ int	main() {
 	head.next = nullptr;
 	while (true)
 	{
-		printf("値を入力してください\n");
+		printf("好きな数字を入力してください\n");
 		scanf_s("%d", &val);
-		printf("入力した値を表示\n");
+		
 		//最後尾にセルを追加
 		Create(&head, val);
 		//リスト一覧の表示
