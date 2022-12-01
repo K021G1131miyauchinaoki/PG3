@@ -37,15 +37,45 @@ int	main() {
 	//先頭のセルを宣言
 	CELL	head;
 	head.next = nullptr;
+
+	int	scene = 0;
+
 	while (true)
 	{
-		printf("値を入力してください\n");
-		scanf_s("%s", val,256);
+		switch (scene)
+		{
+		case	0:
+			printf("[要素の操作]\n");
+			
+			printf("1.要素の一覧表示\n");
+			printf("2.最後尾に要素の挿入\n");
+			printf("3.最後尾の要素の削除\n");
+
+			printf("----------------------------------------\n");
+			printf("操作を選択してください\n");
+
+			scanf_s("%d", &scene);
+
+			break;
+		case	1:
+			//リスト一覧の表示
+			index(&head);
+			break;
+		case	2:
+			//要素の追加
+			printf("値を入力してください\n");
+			scanf_s("%s", val, 256);
+			//最後尾にセルを追加
+			Create(&head, val);
+			break;
+		case	3:
+			//要素の削除
+			break;
+		}
+		
 		printf("入力した値を表示\n");
-		//最後尾にセルを追加
-		Create(&head, val);
-		//リスト一覧の表示
-		index(&head);
+		
+
 	}
 	system("pause");
 
