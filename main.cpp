@@ -1,52 +1,53 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<vector>
-#include <iostream>
-#include<list>
+#include<string.h>
 
 typedef	struct cell
 {
-	int	val;
+	char str[256];
 	struct cell* next;
 }CELL;
 //セルを新規作成する関数
-void	Create(CELL* head_, int val_) {
-	CELL* nextCell;
+void	Create(CELL* head_, const char* str_) {
+	CELL* newCell;
 	//新規作成するセルのポインタ
-	nextCell = (CELL*)malloc(sizeof(CELL));
+	newCell = (CELL*)malloc(sizeof(CELL));
 
-	nextCell->val = val_;
-	nextCell->next = nullptr;
+	strcpy_s(newCell->str, 256, str_);
+	newCell->next = nullptr;
 
+	//nullptrのポインタまで飛ぶ
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
 	}
-	head_->next = nextCell;
+	head_->next = newCell;
 }
 
-void	index(CELL*head_){
+void	index(CELL* head_) {
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
-		printf("%d\n", head_->val);
+		printf("%s\n", head_->str);
 	}
 }
 
 int	main() {
-	int	val;
+	char val[256];
 	//先頭のセルを宣言
 	CELL	head;
 	head.next = nullptr;
 	while (true)
 	{
 		printf("値を入力してください\n");
-		scanf_s("%d", &val);
+		scanf_s("%s", val,256);
 		printf("入力した値を表示\n");
 		//最後尾にセルを追加
 		Create(&head, val);
 		//リスト一覧の表示
 		index(&head);
 	}
+	system("pause");
+
 	return	0;
 }
