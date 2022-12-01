@@ -1,51 +1,75 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<vector>
-#include <iostream>
-#include<list>
 
 typedef	struct cell
 {
 	int	val;
+	struct cell* prev;
 	struct cell* next;
 }CELL;
 //セルを新規作成する関数
-void	Create(CELL* head_, int val_) {
-	CELL* nextCell;
+void	Create(CELL* currentCell, int val_) {
+	CELL* newCell;
 	//新規作成するセルのポインタ
-	nextCell = (CELL*)malloc(sizeof(CELL));
+	newCell = (CELL*)malloc(sizeof(CELL));
+	newCell->val = val_;
+	newCell->prev = currentCell;
+	newCell->next = currentCell->next;
 
-	nextCell->val = val_;
-	nextCell->next = nullptr;
-
-	while (head_->next != nullptr)
+	if (currentCell->next)
 	{
-		head_ = head_->next;
+		CELL* nextCell = currentCell->next;
+		nextCell->prev = newCell;
 	}
-	head_->next = nextCell;
+	currentCell->next = newCell;
 }
 
-void	index(CELL*head_){
-	while (head_->next != nullptr)
+void	index(CELL*end_){
+	int	no = 1;
+	while (end_->next != nullptr)
 	{
-		head_ = head_->next;
-		printf("%d,", head_->val);
+		end_ = end_->next;
+		printf("%d ", no);
+		printf("%p ", end_->prev);
+		printf("%5d ", end_->val);
+		printf("(%p) ", end_);
+		printf("%p\n", end_->next);
 	}
 	printf("\n");
 }
 
+CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
+	for (int i = 0; i < iterator; i++)
+	{
+		if (endCELL->next) {
+			endCELL = endCELL->next;
+		}
+		else
+		{
+			break;
+		}
+	}
+	return	endCELL;
+}
+
 int	main() {
-	int	val;
+	int	iterator;
+	int	inputValue;
+	CELL* insertCell;
 	//先頭のセルを宣言
 	CELL	head;
 	head.next = nullptr;
 	while (true)
 	{
-		printf("好きな数字を入力してください\n");
-		scanf_s("%d", &val);
+		printf("何番目のセルの後ろに挿入しますか？\n");
+		scanf_s("%d", &iterator);
+		
+		printf("挿入する値を入力してください\n");
+		scanf_s("%d", &inputValue);
 		
 		//最後尾にセルを追加
-		Create(&head, val);
+		insertCell = getInsertCellAddress(&head,iterator);
+		Create(insertCell, inputValue);
 		//リスト一覧の表示
 		index(&head);
 	}
