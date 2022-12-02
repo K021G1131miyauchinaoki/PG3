@@ -5,6 +5,7 @@
 typedef	struct cell
 {
 	char str[256];
+	struct cell* prev;
 	struct cell* next;
 }CELL;
 //セルを新規作成する関数
@@ -14,6 +15,7 @@ void	Create(CELL* head_, const char* str_) {
 	newCell = (CELL*)malloc(sizeof(CELL));
 
 	strcpy_s(newCell->str, 256, str_);
+	newCell->prev = head_;
 	newCell->next = nullptr;
 
 	//nullptrのポインタまで飛ぶ
@@ -34,6 +36,11 @@ void	index(CELL* head_) {
 	}
 	printf("\n");
 	printf("要素数 %d\n", num);
+
+}
+
+void	Delete(CELL* end_) {
+	printf("最後尾の要素を削除しました\n\n\n");
 
 }
 
@@ -89,17 +96,13 @@ int	main() {
 			break;
 		case	3:
 			//要素の削除
-
+			Delete(&head);
 
 			printf("----------------------------------------\n");
 			printf("0.初期画面へ戻る\n");
 			scanf_s("%d", &scene);
 			break;
 		}
-		
-		printf("入力した値を表示\n");
-		
-
 	}
 	system("pause");
 
