@@ -6,48 +6,117 @@
 
 typedef	struct cell
 {
-	int	val;
+	char str[256];
+	struct cell* prev;
 	struct cell* next;
 }CELL;
+
 //セルを新規作成する関数
-void	Create(CELL* head_, int val_) {
-	CELL* nextCell;
+void	Create(CELL* head_, const char* str_) {
+	CELL* newCell;
 	//新規作成するセルのポインタ
-	nextCell = (CELL*)malloc(sizeof(CELL));
+	newCell = (CELL*)malloc(sizeof(CELL));
 
-	nextCell->val = val_;
-	nextCell->next = nullptr;
+	strcpy_s(newCell->str, 256, str_);
+	newCell->next = nullptr;
 
+	//nullptrのポインタまで飛ぶ
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
+		newCell->prev = head_;
 	}
-	head_->next = nextCell;
+	head_->next = newCell;
 }
 
+//要素の表示
 void	index(CELL*head_){
+	int	num = 0;
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
-		printf("%d,", head_->val);
+		printf("%d:%s\n", num, head_->str);
+		num++;
 	}
 	printf("\n");
+	printf("要素数 %d\n", num);
+}
+
+//要素の削除
+void	Delete(CELL* end_) {
+
+	while (end_->next != nullptr)
+	{
+		end_ = end_->next;
+	}
+	end_->prev->next = nullptr;
+
+	//printf("%s\n", end_->str);
+
+	printf("最後尾の要素を削除しました\n\n\n");
 }
 
 int	main() {
-	int	val;
+	char val[256];
 	//先頭のセルを宣言
 	CELL	head;
 	head.next = nullptr;
+
+	int	scene = 0;
+
+	Create(&head, "banana");
+	Create(&head, "apple");
+	Create(&head, "orange");
+
 	while (true)
 	{
-		printf("好きな数字を入力してください\n");
-		scanf_s("%d", &val);
-		
-		//最後尾にセルを追加
-		Create(&head, val);
-		//リスト一覧の表示
-		index(&head);
+		switch (scene)
+		{
+		case	0:
+			printf("[要素の操作]\n");
+
+			printf("1.要素の一覧表示\n");
+			printf("2.最後尾に要素の挿入\n");
+			printf("3.最後尾の要素の削除\n");
+
+			printf("----------------------------------------\n");
+			printf("操作を選択してください\n");
+
+			scanf_s("%d", &scene);
+
+			break;
+		case	1:
+			//リスト一覧の表示
+			printf("要素の一覧表示\n");
+			index(&head);
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
+
+			break;
+		case	2:
+			//要素の追加
+			printf("値を入力してください\n");
+			scanf_s("%s", val, 256);
+			//最後尾にセルを追加
+			Create(&head, val);
+			printf("要素%sをリスト最後尾に挿入しました\n", val);
+
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
+			break;
+		case	3:
+			//要素の削除
+			Delete(&head);
+
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
+			break;
+		}
 	}
+	system("pause");
+
 	return	0;
 }
