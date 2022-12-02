@@ -25,11 +25,16 @@ void	Create(CELL* head_, const char* str_) {
 }
 
 void	index(CELL* head_) {
+	int	num = 0;
 	while (head_->next != nullptr)
 	{
 		head_ = head_->next;
-		printf("%s\n", head_->str);
+		printf("%d:%s\n",num, head_->str);
+		num++;
 	}
+	printf("\n");
+	printf("要素数 %d\n", num);
+
 }
 
 int	main() {
@@ -39,6 +44,10 @@ int	main() {
 	head.next = nullptr;
 
 	int	scene = 0;
+
+	Create(&head, "banana");
+	Create(&head, "apple");
+	Create(&head, "orange");
 
 	while (true)
 	{
@@ -59,7 +68,12 @@ int	main() {
 			break;
 		case	1:
 			//リスト一覧の表示
+			printf("要素の一覧表示\n");
 			index(&head);
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
+
 			break;
 		case	2:
 			//要素の追加
@@ -67,9 +81,19 @@ int	main() {
 			scanf_s("%s", val, 256);
 			//最後尾にセルを追加
 			Create(&head, val);
+			printf("要素%sをリスト最後尾に挿入しました\n",val);
+
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
 			break;
 		case	3:
 			//要素の削除
+
+
+			printf("----------------------------------------\n");
+			printf("0.初期画面へ戻る\n");
+			scanf_s("%d", &scene);
 			break;
 		}
 		
