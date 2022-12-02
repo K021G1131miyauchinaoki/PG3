@@ -20,10 +20,13 @@ void	Specification(CELL* element, int iterator);
 //要素の削除
 void	Delete(CELL* end_);
 
+//要素の編集
+void	Edit(CELL* element, int iterator);
+
 CELL* getInsertCellAddress(CELL* endCELL, int iterator);
 
 int	main() {
-	char val[256];
+	char str[256];
 	int	iterator = 0;
 	//先頭のセルを宣言
 	CELL	insertCell;
@@ -55,8 +58,7 @@ int	main() {
 			scanf_s("%d", &scene);
 			display = 0;
 			break;
-		case	1:
-			//要素の表示
+		case	1://-----------要素の表示-----------
 			switch (display)
 			{
 			case	0:
@@ -107,23 +109,27 @@ int	main() {
 			}
 
 			break;
-		case	2:
-			//要素の追加
+		case	2://-----------要素の追加-----------
+			//
 			printf("値を入力してください\n");
-			scanf_s("%s", val, 256);
+			scanf_s("%s", str, 256);
 			//最後尾にセルを追加
-			Create(&insertCell, val);
-			printf("要素%sをリスト最後尾に挿入しました\n",val);
+			Create(&insertCell, str);
+			printf("要素%sをリスト最後尾に挿入しました\n",str);
 
 			printf("----------------------------------------\n");
 			printf("0.初期画面へ戻る\n");
 			scanf_s("%d", &scene);
 			break;
-		case	3:
+		case	3://-----------要素の編集-----------
+			printf("編集したい要素の番号を指定してください\n");
+			scanf_s("%d", &iterator);
+			Edit(&insertCell, iterator);
+
+			scene = 0;
 
 			break;
-		case	4:
-			//要素の削除
+		case	4://-----------要素の削除-----------
 			Delete(&insertCell);
 
 			printf("----------------------------------------\n");
@@ -192,6 +198,30 @@ void	Specification(CELL* element, int iterator) {
 	}
 }
 
+//要素の編集
+void	Edit(CELL* element, int iterator) {
+	for (int i = 0; i < iterator + 1; i++)
+	{
+		if (element!=nullptr)
+		{
+			element = element->next;
+		}
+	}
+	if (element == nullptr)
+	{
+		printf("%d番目の要素がないため編集できません\n", iterator);
+	}
+	else	
+	{
+		char str[256];
+		printf("%d番目の要素の変更する値を入力してください\n", iterator);
+		scanf_s("%s", &str, 256);
+		strcpy_s(element->str, 256, str);
+		printf("%d番目の要素の値が%sに変更されました\n", iterator, element->str);
+	}
+}
+
+//要素の削除
 void	Delete(CELL* end_) {
 	while (end_->next != nullptr)
 	{
