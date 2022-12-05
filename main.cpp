@@ -23,6 +23,8 @@ int main()
 		}
 	}
 
+	printf("結果は...\n");
+
 	//答え合わせ
 	std::function<void()>ResultDisplay = [answer]() {
 		//乱数処理
@@ -32,10 +34,9 @@ int main()
 	};
 
 	//タイムアウト
-	std::function<void(std::function<void()>p, int second)>setTimeout = [=](std::function<void()>p, int second) {
-		printf("結果は\n");
+	std::function<void(std::function<void()>p, int second)>setTimeout = [=](std::function<void()>func, int second) {
 		Sleep(second * 1000);
-		p();
+		func();
 	};
 
 	setTimeout(ResultDisplay, 3);
