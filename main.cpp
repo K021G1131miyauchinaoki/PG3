@@ -39,7 +39,7 @@ int	main() {
 			, "Yurakucho"		//有楽町
 	};
 	//年代
-	int	age;
+	int	era;
 	while (true)
 	{
 		//要素の削除
@@ -67,13 +67,13 @@ int	main() {
 		printf("0で1970年,1で2019年,2で2022年の駅一覧を表示します\n");
 		printf("終了する際は3を入力してください\n");
 
-		scanf_s("%d", &age);
+		scanf_s("%d", &era);
 
 		//要素の追加
 		for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
 		{
 			//2019年　西日暮里駅を追加
-			if (age == 1)
+			if (era == 1)
 			{
 				if (*itr == "Tabata")
 				{
@@ -82,7 +82,7 @@ int	main() {
 				}
 			}
 			//2022年　西日暮里駅,高輪ゲートウェイ駅を追加
-			if (age == 2)
+			if (era == 2)
 			{
 				if (*itr == "Tabata")
 				{
@@ -98,7 +98,7 @@ int	main() {
 		}
 
 		//描画
-		if (age == 0 || age == 1 || age == 2)
+		if (era == 0 || era == 1 || era == 2)
 		{
 			for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
 			{
@@ -107,7 +107,7 @@ int	main() {
 			}
 		}
 		//3がだったらループを抜ける
-		else if (age==3)
+		else if (era==3)
 		{
 			break;
 		}
