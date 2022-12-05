@@ -47,27 +47,17 @@ int	main() {
 		for (std::list<const char*>::iterator itr = yamanoteLine.begin(); itr != yamanoteLine.end(); ++itr)
 		{
 			//2019”N@¼“ú•é—¢‰w‚ğ’Ç‰Á
-			if (era == 2019)
+			if (era == 2019 && *itr == "Tabata")
 			{
-				if (*itr == "Tabata")
-				{
-					itr = yamanoteLine.insert(itr, "Nishi-Nippori");
-					++itr;
-				}
+				itr = yamanoteLine.insert(itr, "Nishi-Nippori");
+				++itr;
 			}
+			
 			//2022”N@¼“ú•é—¢‰w,‚—ÖƒQ[ƒgƒEƒFƒC‰w‚ğ’Ç‰Á
-			if (era == 2022)
+			if (era == 2022 && *itr == "Tamachi")
 			{
-				if (*itr == "Tabata")
-				{
-					itr = yamanoteLine.insert(itr, "Nishi-Nippori");
-					++itr;
-				}
-				if (*itr == "Tamachi")
-				{
-					itr = yamanoteLine.insert(itr, "TakanawaGateway");
-					++itr;
-				}
+				itr = yamanoteLine.insert(itr, "TakanawaGateway");
+				++itr;
 			}
 		}
 		//•`‰æ
