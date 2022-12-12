@@ -1,19 +1,20 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<string.h>
 
 typedef	struct cell
 {
-	int	val;
+	char	station[256];
 	struct cell* prev;
 	struct cell* next;
 }CELL;
 //セルを新規作成する関数
-void	Create(CELL* currentCell, int val_) {
+void	Create(CELL* currentCell,const char*	station_) {
 	CELL* newCell;
 	//新規作成するセルのポインタ
 	newCell = (CELL*)malloc(sizeof(CELL));
-	newCell->val = val_;
-	newCell->prev = currentCell;
+	strcpy_s(newCell->station, 256, station_);
+	//newCell->prev = currentCell;
 	newCell->next = currentCell->next;
 
 	if (currentCell->next)
@@ -29,13 +30,14 @@ void	index(CELL*end_){
 	while (end_->next != nullptr)
 	{
 		end_ = end_->next;
-		printf("%d ", no);
-		printf("%p ", end_->prev);
-		printf("%5d ", end_->val);
-		printf("(%p) ", end_);
-		printf("%p\n", end_->next);
+		printf("%s\n", end_->station);
 	}
 	printf("\n");
+	/*while (end_->prev != nullptr)
+	{
+		end_ = end_->next;
+		printf("%s\n", end_->station);
+	}*/
 }
 
 CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
@@ -54,7 +56,7 @@ CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
 
 int	main() {
 	int	iterator;
-	int	inputValue;
+	char	inputStation[256];
 	CELL* insertCell;
 	//先頭のセルを宣言
 	CELL	head;
@@ -65,11 +67,11 @@ int	main() {
 		scanf_s("%d", &iterator);
 		
 		printf("挿入する値を入力してください\n");
-		scanf_s("%d", &inputValue);
+		scanf_s("%d", &inputStation);
 		
 		//最後尾にセルを追加
 		insertCell = getInsertCellAddress(&head,iterator);
-		Create(insertCell, inputValue);
+		Create(insertCell, inputStation);
 		//リスト一覧の表示
 		index(&head);
 	}
