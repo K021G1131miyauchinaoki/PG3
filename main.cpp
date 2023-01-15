@@ -9,7 +9,7 @@ typedef	struct cell
 	struct cell* next;
 }CELL;
 //セルを新規作成する関数
-void	Create(CELL* head_, const char* str_);
+void	Create(CELL* head_, const char* str_, int iterator);
 
 //一覧の表示
 void	index(CELL* head_);
@@ -28,16 +28,17 @@ CELL* getInsertCellAddress(CELL* endCELL, int iterator);
 int	main() {
 	char str[256];
 	int	iterator = 0;
+	CELL* insertCell;
 	//先頭のセルを宣言
-	CELL	insertCell;
-	insertCell.next = nullptr;
+	CELL	head;
+	head.next = nullptr;
 
 	int	scene = 0;
 	int	display=0;
 
-	Create(&insertCell, "banana");
-	Create(&insertCell, "apple");
-	Create(&insertCell, "orange");
+	Create(&head, "banana",114514);
+	Create(&head, "apple", 114514);
+	Create(&head, "orange", 114514);
 
 	while (true)
 	{
@@ -80,7 +81,7 @@ int	main() {
 			case	1:
 				printf("[要素の一覧の表示]\n");
 
-				index(&insertCell);
+				index(&head);
 				printf("----------------------------------------\n");
 				printf("0.要素の表示に戻る\n");
 				printf("1.要素の操作に戻る\n");
@@ -95,7 +96,7 @@ int	main() {
 				printf("指定した要素の表示\n");
 				printf("要素を番号で指定してください\n");
 				scanf_s("%d", &iterator);
-				Specification(&insertCell,iterator);
+				Specification(&head,iterator);
 				printf("----------------------------------------\n");
 				printf("0.要素の表示に戻る\n");
 				printf("1.要素の操作に戻る\n");
@@ -110,27 +111,28 @@ int	main() {
 
 			break;
 		case	2://-----------要素の追加-----------
-			//
+			printf("何番目のセルに挿入しますか？\n114514の場合、最後尾に挿入します\n");
+			scanf_s("%d", &iterator);
 			printf("値を入力してください\n");
 			scanf_s("%s", str, 256);
 			//最後尾にセルを追加
-			Create(&insertCell, str);
-			printf("要素%sをリスト最後尾に挿入しました\n",str);
+			insertCell = getInsertCellAddress(&head, iterator);
+			Create(insertCell, str,iterator);
+			printf("要素%sを挿入しました\n",str);
 
 			printf("----------------------------------------\n");
-			printf("0.初期画面へ戻る\n");
-			scanf_s("%d", &scene);
+			scene = 0;
 			break;
 		case	3://-----------要素の編集-----------
 			printf("編集したい要素の番号を指定してください\n");
 			scanf_s("%d", &iterator);
-			Edit(&insertCell, iterator);
+			Edit(&head, iterator);
 
 			scene = 0;
 
 			break;
 		case	4://-----------要素の削除-----------
-			Delete(&insertCell);
+			Delete(&head);
 
 			printf("----------------------------------------\n");
 			printf("0.初期画面へ戻る\n");
@@ -146,22 +148,49 @@ int	main() {
 	return	0;
 }
 
-
-void	Create(CELL* head_, const char* str_) {
+//要素の挿入
+void	Create(CELL* head_, const char* str_, int iterator) {
 	CELL* newCell;
 	//新規作成するセルのポインタ
 	newCell = (CELL*)malloc(sizeof(CELL));
-
 	strcpy_s(newCell->str, 256, str_);
 	newCell->prev = head_;
 	newCell->next = nullptr;
-
-	//nullptrのポインタまで飛ぶ
-	while (head_->next != nullptr)
+	if (iterator==114514)
 	{
-		head_ = head_->next;
+		//nullptrのポインタまで飛ぶ
+		while (head_->next != nullptr)
+		{
+			head_ = head_->next;
+		}
 	}
+	else
+	{
+		if (head_->next)
+		{
+			CELL* nextCell = head_->next;
+			nextCell->prev = newCell;
+		}
+	}
+	
 	head_->next = newCell;
+}
+CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
+	if (iterator!=114514)
+	{
+		for (int i = 0; i < iterator; i++)
+		{
+			if (endCELL->next) {
+				endCELL = endCELL->next;
+			}
+			else
+			{
+				break;
+			}
+		}
+	}
+	
+	return	endCELL;
 }
 
 //一覧の表示
@@ -234,16 +263,3 @@ void	Delete(CELL* end_) {
 	printf("最後尾の要素を削除しました\n\n\n");
 }
 
-CELL* getInsertCellAddress(CELL* endCELL, int iterator) {
-	for (int i = 0; i < iterator; i++)
-	{
-		if (endCELL->next) {
-			endCELL = endCELL->next;
-		}
-		else
-		{
-			break;
-		}
-	}
-	return	endCELL;
-}
