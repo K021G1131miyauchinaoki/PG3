@@ -7,10 +7,12 @@
 int	main() {
 	int sceneNo = 0;
 
+	SceneManager* sceneManager = SceneManager::GetInstance();
+
 	while (true)
 	{
 		system("cls");
-		SceneManager::ChangeScene(sceneNo);
+		sceneManager->ChangeScene(sceneNo);
 		switch (_getch())
 		{
 		case 0x20:
