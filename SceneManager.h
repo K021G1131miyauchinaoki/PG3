@@ -1,6 +1,5 @@
 #pragma once
-class SceneManager
-{
+class SceneManager final{
 private:
 	SceneManager();
 	~SceneManager();
