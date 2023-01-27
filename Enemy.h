@@ -15,6 +15,7 @@ public:
 
 private:
 	static void (Enemy::* activeTable[])();
+	//static void Settimeout();
 	int num = 0;
 };
 

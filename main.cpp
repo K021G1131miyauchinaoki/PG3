@@ -8,7 +8,15 @@ int	main() {
 	Enemy* enemy = new Enemy;
 	while (true)
 	{
-		enemy->Update();
+		switch (_getch())
+		{
+		case 0x20:
+			enemy->Update();
+			break;
+		default:
+			break;
+		}
+
 	}
 	
 

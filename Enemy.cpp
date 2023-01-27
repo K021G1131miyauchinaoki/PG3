@@ -8,7 +8,7 @@ void (Enemy::* Enemy::activeTable[])() = {
 };
 
 void Enemy::Update() {
-	activeTable[num];
+	(this->*activeTable[num])();
 }
 
 void Enemy::Access() {
