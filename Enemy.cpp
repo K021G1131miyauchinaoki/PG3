@@ -1,12 +1,26 @@
 #include "Enemy.h"
+#include<stdio.h>
 
-int Enemy::num;
+void (Enemy::* Enemy::activeTable[])() = {
+	&Enemy::Access,		 //—£’E
+	&Enemy::Shoot,		 //ËŒ‚
+	&Enemy::Elimination //—£’E
+};
 
+void Enemy::Update() {
+	activeTable[num];
+}
 
+void Enemy::Access() {
+	printf("“G‚ª‹ß‚Ã‚¢‚Ä‚«‚½\n\n");
+	num++;
+}
 
-void Enemy::AllFallDown() {
-	if (num==0)
-	{
-		printf("‚·‚×‚Ä‚Ì“G‚Ííœ‚³‚ê‚½\n");
-	}
+void Enemy::Shoot() {
+	printf("“G‚Ìƒr[ƒ€ËŒ‚\n\n");
+	num++;
+}
+void Enemy::Elimination() {
+	printf("“G‚Í—£’E‚µ‚½\n\n");
+	num = 0;
 }

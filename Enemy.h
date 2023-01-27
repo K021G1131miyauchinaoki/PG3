@@ -3,20 +3,19 @@
 
 class Enemy
 {
-protected:
 public:
-	Enemy() {
-		num++;
-		printf("“G%d‚ªŒ»‚ê‚½\n", num);
-	}
-	~Enemy() {
-		num--;
-	}
-	static int GetNum() { return num; }
-	static void AllFallDown();
-	static int num;
-	static bool isDead;
+	//Ú‹ß
+	void Access();
+	//ËŒ‚
+	void Shoot();
+	//—£’E
+	void Elimination();
+	//XV
+	void Update();
+
 private:
+	static void (Enemy::* activeTable[])();
+	int num = 0;
 };
 
 
