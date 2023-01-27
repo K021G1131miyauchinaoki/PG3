@@ -1,5 +1,7 @@
 #pragma once
 #include<stdio.h>
+#include<time.h>
+#include<Windows.h>
 
 class Enemy
 {
@@ -13,10 +15,11 @@ public:
 	//XV
 	void Update();
 
+	static int GetNum() { return num; }
 private:
 	static void (Enemy::* activeTable[])();
-	//static void Settimeout();
-	int num = 0;
+	void	Timeout();
+	static int num;
 };
 
 

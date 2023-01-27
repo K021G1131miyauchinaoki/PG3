@@ -1,14 +1,20 @@
 #include "Enemy.h"
 #include<stdio.h>
 
+int Enemy::num = 0;
+
 void (Enemy::* Enemy::activeTable[])() = {
 	&Enemy::Access,		 //—£’E
 	&Enemy::Shoot,		 //ŽËŒ‚
 	&Enemy::Elimination //—£’E
 };
 
-void Enemy::Update() {
+void	Enemy::Timeout() {
+	Sleep(1 * 1000);
 	(this->*activeTable[num])();
+}
+void Enemy::Update() {
+	Timeout();
 }
 
 void Enemy::Access() {
@@ -22,5 +28,5 @@ void Enemy::Shoot() {
 }
 void Enemy::Elimination() {
 	printf("“G‚Í—£’E‚µ‚½\n\n");
-	num = 0;
+	num++;
 }

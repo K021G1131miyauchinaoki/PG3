@@ -7,16 +7,13 @@
 int	main() {
 	Enemy* enemy = new Enemy;
 	while (true)
-	{
-		switch (_getch())
+	{	
+		enemy->Update();
+
+		if (Enemy::GetNum()==3)
 		{
-		case 0x20:
-			enemy->Update();
-			break;
-		default:
 			break;
 		}
-
 	}
 	
 
