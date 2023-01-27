@@ -30,7 +30,7 @@ int	main() {
 		printf("1‚©‚ç%d‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢\n", Enemy::GetNum());
 		
 		scanf_s("%d", &num);
-		if (num==1||num==2)
+		if (num>=1&&num<=Enemy::GetNum())
 		{
 			Enemy::isDead = true;
 		}
