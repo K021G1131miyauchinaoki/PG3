@@ -27,7 +27,7 @@ int	main() {
 	printf("\nどれを攻撃する?\n");
 	while (true)
 	{
-		printf("1か2を選択してください\n");
+		printf("1から%dを選択してください\n", Enemy::GetNum());
 		
 		scanf_s("%d", &num);
 		if (num==1||num==2)
@@ -35,7 +35,7 @@ int	main() {
 			Enemy::isDead = true;
 		}
 		else {
-			printf("1か2以外は入力できません\n\n");
+			printf("1から%d以外は入力できません\n\n",Enemy::GetNum());
 		}
 		if (Enemy::isDead)
 		{
