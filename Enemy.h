@@ -12,8 +12,6 @@ public:
 	~Enemy() {
 		num--;
 	}
-	static int GetNum() { return num; }
-	static void AllFallDown();
 	static int num;
 	static bool isDead;
 private:

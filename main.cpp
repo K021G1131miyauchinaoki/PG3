@@ -7,6 +7,7 @@
 #include"Enemy.h"
 
 bool Enemy::isDead;
+int Enemy::num;
 
 int	main() {
 
@@ -27,20 +28,20 @@ int	main() {
 	printf("\nどれを攻撃する?\n");
 	while (true)
 	{
-		printf("1から%dを選択してください\n", Enemy::GetNum());
+		printf("1から%dを選択してください\n", Enemy::num);
 		
 		scanf_s("%d", &num);
-		if (num>=1&&num<=Enemy::GetNum())
+		if (num>=1&&num<=Enemy::num)
 		{
 			Enemy::isDead = true;
 		}
 		else {
-			printf("1から%d以外は入力できません\n\n",Enemy::GetNum());
+			printf("1から%d以外は入力できません\n\n",Enemy::num);
 		}
 		if (Enemy::isDead)
 		{
 			enemys.remove_if([](std::unique_ptr<Enemy>& enemy) { return Enemy::isDead; });
-			Enemy::AllFallDown();
+			printf("すべての敵は削除された\n");
 			break;
 		}
 
