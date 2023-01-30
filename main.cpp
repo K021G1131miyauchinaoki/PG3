@@ -2,22 +2,27 @@
 #include<stdlib.h>
 #include<conio.h>
 #include<iostream>
-#include"Enemy.h"
+#include"IShape.h"
+#include"Circle.h"
+#include"Rectangle.h"
 
 int	main() {
-	Enemy* enemy = new Enemy;
-	while (true)
-	{	
-		enemy->Update();
-
-		if (Enemy::GetNum()==3)
-		{
-			break;
-		}
-	}
 	
+	IShape* iShape[2];
 
-	delete enemy;
+	iShape[0] = new	Circle;
+	iShape[1] = new	Rectangle;
+
+	for (int i = 0; i < 2; i++)
+	{
+		iShape[i]->Size();
+		iShape[i]->Draw();
+	}
+
+	for (int i = 0; i < 2; i++)
+	{
+		delete	iShape[i];
+	}
 	system("Pause");
 
 	return	0;
